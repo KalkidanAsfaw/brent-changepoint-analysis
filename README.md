@@ -25,6 +25,8 @@ how major events move the oil market.
 │   ├── events.csv                    # 16 researched key events (Task 1)
 │   ├── changepoint_results.json      # Detected breaks + quantified impacts (Task 2)
 │   └── BrentOilPrices.csv            # Daily prices (download separately, gitignored)
+├── docs/
+│   └── analysis_workflow.md          # Planned analysis steps, assumptions & limitations (Task 1)
 ├── notebooks/
 │   ├── 01_eda.ipynb                  # Data prep, EDA, stationarity analysis
 │   └── 02_change_point_model.ipynb   # Bayesian change point detection (PyMC)

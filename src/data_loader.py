@@ -16,10 +16,21 @@ def load_prices(path: Path = PRICES_CSV) -> pd.DataFrame:
     The source file mixes date styles (e.g. '20-May-87' and 'Apr 22, 2020'),
     so parsing falls back to pandas' flexible parser per-element.
     """
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} not found. Download BrentOilPrices.csv from the challenge's "
+            "shared Drive folder into data/ (see data/README.md)."
+        )
     df = pd.read_csv(path)
+    missing = {"Date", "Price"} - set(df.columns)
+    if missing:
+        raise ValueError(f"{path} is missing expected column(s): {sorted(missing)}")
     df["Date"] = pd.to_datetime(df["Date"], format="mixed", dayfirst=True)
     df = df.sort_values("Date").set_index("Date")
     df["Price"] = pd.to_numeric(df["Price"])
+    if df.empty or (df["Price"] <= 0).any() or df["Price"].isna().any():
+        raise ValueError(f"{path} contains empty, missing, or non-positive prices")
     return df
 
 
@@ -32,5 +43,11 @@ def add_log_returns(df: pd.DataFrame) -> pd.DataFrame:
 
 def load_events(path: Path = EVENTS_CSV) -> pd.DataFrame:
     """Load the researched key-events dataset with parsed dates."""
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"{path} not found — expected the tracked events dataset")
     df = pd.read_csv(path, parse_dates=["event_date"])
+    missing = {"event_date", "event_name", "category", "description"} - set(df.columns)
+    if missing:
+        raise ValueError(f"{path} is missing expected column(s): {sorted(missing)}")
     return df.sort_values("event_date").reset_index(drop=True)
