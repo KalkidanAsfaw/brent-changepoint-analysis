@@ -23,13 +23,16 @@ how major events move the oil market.
 ├── .vscode/                          # Editor settings
 ├── data/
 │   ├── events.csv                    # 16 researched key events (Task 1)
+│   ├── changepoint_results.json      # Detected breaks + quantified impacts (Task 2)
 │   └── BrentOilPrices.csv            # Daily prices (download separately, gitignored)
 ├── notebooks/
-│   └── 01_eda.ipynb                  # Data prep, EDA, stationarity analysis
+│   ├── 01_eda.ipynb                  # Data prep, EDA, stationarity analysis
+│   └── 02_change_point_model.ipynb   # Bayesian change point detection (PyMC)
 ├── src/
-│   └── data_loader.py                # Loading / log-return helpers
+│   ├── data_loader.py                # Loading / log-return helpers
+│   └── change_point_model.py         # PyMC model, fitting, impact summaries
 ├── scripts/                          # CLI utilities
-├── tests/                            # Unit tests (events dataset validation)
+├── tests/                            # Unit tests (events data, model helpers)
 ├── reports/                          # Interim and final reports
 └── requirements.txt
 ```
@@ -57,8 +60,9 @@ pytest tests/ -v
 2. **EDA** — trend, volatility clustering, stationarity (ADF tests).
 3. **Event research** — compile key oil-market events (`data/events.csv`).
 4. **Bayesian change point modeling** — PyMC model with a discrete-uniform
-   switch point `tau` and before/after parameters selected via
-   `pm.math.switch`; MCMC sampling with convergence checks (r_hat, traces).
+   switch point `tau` and before/after mean and volatility selected via
+   `pm.math.switch`; applied over focused windows around candidate break
+   periods; MCMC sampling with convergence checks (r_hat, ESS, traces).
 5. **Interpretation** — posterior of `tau` mapped to calendar dates,
    quantified before/after shifts, association with researched events.
 6. **Dashboard** — Flask API serving prices, events, and change point

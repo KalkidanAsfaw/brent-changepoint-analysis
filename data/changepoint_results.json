@@ -1,0 +1,117 @@
+{
+  "2008 Financial Crisis": {
+    "change_date": "2008-08-20",
+    "change_date_hdi_95": [
+      "2008-07-31",
+      "2008-09-15"
+    ],
+    "mean_price_before": 112.88,
+    "mean_price_after": 59.4,
+    "price_change_pct": -47.4,
+    "ann_vol_before": 0.329,
+    "ann_vol_after": 0.669,
+    "p_vol_increased": 1.0,
+    "max_rhat": 1.01,
+    "nearby_events": [
+      {
+        "event_date": "2008-09-15",
+        "event_name": "Lehman Brothers collapse (Global Financial Crisis)",
+        "days_from_break": 26
+      }
+    ]
+  },
+  "2014-15 OPEC price war": {
+    "change_date": "2014-10-20",
+    "change_date_hdi_95": [
+      "2014-09-29",
+      "2014-11-04"
+    ],
+    "mean_price_before": 105.43,
+    "mean_price_after": 55.81,
+    "price_change_pct": -47.1,
+    "ann_vol_before": 0.136,
+    "ann_vol_after": 0.39,
+    "p_vol_increased": 1.0,
+    "max_rhat": 1.01,
+    "nearby_events": [
+      {
+        "event_date": "2014-11-27",
+        "event_name": "OPEC declines to cut production",
+        "days_from_break": 38
+      }
+    ]
+  },
+  "2020 COVID crash": {
+    "change_date": "2020-03-06",
+    "change_date_hdi_95": [
+      "2020-03-05",
+      "2020-03-06"
+    ],
+    "mean_price_before": 61.7,
+    "mean_price_after": 23.0,
+    "price_change_pct": -62.7,
+    "ann_vol_before": 0.302,
+    "ann_vol_after": 2.467,
+    "p_vol_increased": 1.0,
+    "max_rhat": 1.0,
+    "nearby_events": [
+      {
+        "event_date": "2020-03-06",
+        "event_name": "OPEC+ agreement collapses (Saudi-Russia price war)",
+        "days_from_break": 0
+      },
+      {
+        "event_date": "2020-03-11",
+        "event_name": "WHO declares COVID-19 pandemic",
+        "days_from_break": 5
+      },
+      {
+        "event_date": "2020-04-12",
+        "event_name": "OPEC+ historic 9.7M b/d cut",
+        "days_from_break": 37
+      }
+    ]
+  },
+  "2020 COVID recovery": {
+    "change_date": "2020-05-07",
+    "change_date_hdi_95": [
+      "2020-05-06",
+      "2020-05-21"
+    ],
+    "mean_price_before": 20.74,
+    "mean_price_after": 42.07,
+    "price_change_pct": 102.9,
+    "ann_vol_before": 2.461,
+    "ann_vol_after": 0.407,
+    "p_vol_increased": 0.0,
+    "max_rhat": 1.0,
+    "nearby_events": [
+      {
+        "event_date": "2020-04-12",
+        "event_name": "OPEC+ historic 9.7M b/d cut",
+        "days_from_break": 25
+      }
+    ]
+  },
+  "2022 Russia invasion": {
+    "change_date": "2022-02-24",
+    "change_date_hdi_95": [
+      "2022-02-04",
+      "2022-05-17"
+    ],
+    "mean_price_before": 84.98,
+    "mean_price_after": 114.29,
+    "price_change_pct": 34.5,
+    "ann_vol_before": 0.316,
+    "ann_vol_after": 0.581,
+    "p_vol_increased": 0.957,
+    "max_rhat": 1.05,
+    "nearby_events": [
+      {
+        "event_date": "2022-02-24",
+        "event_name": "Russia invades Ukraine",
+        "days_from_break": 0
+      }
+    ]
+  }
+}
