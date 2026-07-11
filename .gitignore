@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Data - raw price data is downloaded separately (see data/README.md)
+data/BrentOilPrices.csv
+
+# OS / editor
+.DS_Store
+
+# Node (Task 3 frontend)
+dashboard/frontend/node_modules/
+dashboard/frontend/build/
+dashboard/frontend/dist/
+
+# Model artifacts
+*.nc

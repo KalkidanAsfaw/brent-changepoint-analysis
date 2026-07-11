@@ -1,0 +1,23 @@
+# Core analysis
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.13
+
+# Bayesian modeling
+pymc>=5.10
+arviz>=0.17
+
+# Time series statistics
+statsmodels>=0.14
+
+# Notebooks
+jupyter
+ipykernel
+
+# Dashboard backend (Task 3)
+flask>=3.0
+flask-cors>=4.0
+
+# Testing
+pytest>=8.0
