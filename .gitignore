@@ -19,3 +19,4 @@ dashboard/frontend/dist/
 
 # Model artifacts
 *.nc
+reports/
