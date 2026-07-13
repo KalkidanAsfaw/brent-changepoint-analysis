@@ -25,6 +25,10 @@ how major events move the oil market.
 │   ├── events.csv                    # 16 researched key events (Task 1)
 │   ├── changepoint_results.json      # Detected breaks + quantified impacts (Task 2)
 │   └── BrentOilPrices.csv            # Daily prices (download separately, gitignored)
+├── dashboard/
+│   ├── backend/app.py                # Flask API (Task 3) — see dashboard/README.md
+│   ├── frontend/                     # React + Vite + Recharts dashboard
+│   └── screenshots/                  # Dashboard feature screenshots
 ├── docs/
 │   └── analysis_workflow.md          # Planned analysis steps, assumptions & limitations (Task 1)
 ├── notebooks/
