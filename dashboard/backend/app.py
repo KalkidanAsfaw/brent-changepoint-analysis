@@ -27,11 +27,13 @@ from src.data_loader import add_log_returns, load_events, load_prices  # noqa: E
 RESULTS_JSON = ROOT / "data" / "changepoint_results.json"
 
 
-def create_app() -> Flask:
+def create_app(prices_csv: Path = None) -> Flask:
+    """Build the API app. `prices_csv` overrides the default data file (tests)."""
     app = Flask(__name__)
     CORS(app)
 
-    prices = add_log_returns(load_prices())
+    prices = add_log_returns(
+        load_prices(prices_csv) if prices_csv else load_prices())
     events = load_events()
     changepoints = json.loads(RESULTS_JSON.read_text())
 

@@ -1,21 +1,45 @@
-"""Tests for the dashboard Flask API."""
+"""Tests for the dashboard Flask API.
 
+Uses a synthetic price series (the real CSV is downloaded separately and not
+in git, so CI never has it). Events and change point results are committed
+files and used as-is.
+"""
+
+import numpy as np
+import pandas as pd
 import pytest
 
 from dashboard.backend.app import create_app
 
+START, END = "2019-06-03", "2022-11-14"
+
 
 @pytest.fixture(scope="module")
-def client():
-    app = create_app()
+def prices_csv(tmp_path_factory):
+    # Monotonically increasing prices → every event impact is positive,
+    # and log returns are constant and well-defined.
+    dates = pd.bdate_range(START, END)
+    prices = 50 * 1.0005 ** np.arange(len(dates))
+    path = tmp_path_factory.mktemp("data") / "prices.csv"
+    pd.DataFrame({
+        "Date": dates.strftime("%d-%b-%y"),
+        "Price": prices.round(2),
+    }).to_csv(path, index=False)
+    return path, len(dates)
+
+
+@pytest.fixture(scope="module")
+def client(prices_csv):
+    app = create_app(prices_csv=prices_csv[0])
     app.testing = True
     return app.test_client()
 
 
-def test_prices_full_range(client):
+def test_prices_full_range(client, prices_csv):
     rows = client.get("/api/prices").get_json()
-    assert len(rows) == 9011
-    assert rows[0] == {"date": "1987-05-20", "price": 18.63, "log_return": None}
+    assert len(rows) == prices_csv[1]
+    assert rows[0] == {"date": START, "price": 50.0, "log_return": None}
+    assert rows[1]["log_return"] == pytest.approx(np.log(1.0005), abs=1e-4)
 
 
 def test_prices_date_filter(client):
@@ -47,11 +71,12 @@ def test_changepoints(client):
 def test_indicators(client):
     data = client.get("/api/indicators?window=30").get_json()
     assert data["window_days"] == 30
-    assert len(data["rolling_volatility"]) > 1000
-    assert len(data["event_impacts"]) >= 10
+    assert len(data["rolling_volatility"]) > 100
+    # Events inside the synthetic span (Abqaiq 2019 → invasion 2022).
+    assert len(data["event_impacts"]) >= 5
     invasion = next(e for e in data["event_impacts"]
                     if e["name"].startswith("Russia invades"))
-    assert invasion["pct_change"] > 0
+    assert invasion["pct_change"] > 0  # prices are monotonically increasing
 
 
 def test_indicators_bad_window(client):
